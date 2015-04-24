@@ -12,7 +12,8 @@
             getHashCallback: function(hash, btn) { return hash },
             selectorAttribute: "href",
             backToTop: false,
-            initialTab: $('li.active > a', context)
+            initialTab: $('li.active > a', context),
+            forceDefaultHash: false
         }, options );
 
         // Show the tab corresponding with the hash in the URL, or the first tab.
@@ -56,6 +57,11 @@
           setTimeout(backToTop, 1);
         });
 
+        // Set the hash based on the initialTab
+        if (settings.forceDefaultHash && (window.location.hash == "" || window.location.hash == "#") ) {
+          window.location.hash = settings.initialTab.attr(settings.selectorAttribute);
+        }
+        
         return this;
     };
 }( jQuery ));
